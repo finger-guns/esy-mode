@@ -69,7 +69,7 @@ Common use case is to enable ask lsp client to connect to the server
 (defun esy/project--persist (project)
   "Persist project indexed by path"
   (let* ((project-db-name "esy-projects.db")
-	 (project-db-path (concat "~/.emacs.d/" project-db-name))
+	 (project-db-path (concat "~/.config.d/emacs" project-db-name))
 	 (db (condition-case
 		 err
 		 (esy/internal--read-obj project-db-path)
@@ -81,7 +81,7 @@ Common use case is to enable ask lsp client to connect to the server
 (defun esy/project--read-db (project-path)
     "Load a project"
   (let* ((project-db-name "esy-projects.db")
-	 (project-db-path (concat "~/.emacs.d/" project-db-name))
+	 (project-db-path (concat "~/.config.d/emacs/" project-db-name))
 	 (db (condition-case
 		 err
 		 (esy/internal--read-obj project-db-path)
