@@ -66,27 +66,28 @@ Common use case is to enable ask lsp client to connect to the server
   "Reads object from file"
   (eval (car (read-from-string (esy/f--read file-path)))))
 
+
 (defun esy/project--persist (project)
   "Persist project indexed by path"
   (let* ((project-db-name "esy-projects.db")
-	 (project-db-path (concat "~/.config.d/emacs" project-db-name))
+	 (project-db-path (concat (user-emacs-directory project-db-name))
 	 (db (condition-case
 		 err
 		 (esy/internal--read-obj project-db-path)
 	       (error (esy--make-hash-table))))
 	 (project-path (esy/project--get-path project)))
     (puthash project-path project db)
-    (esy/internal--persist-obj db project-db-path)))
+    (esy/internal--persist-obj db project-db-path))))
 
 (defun esy/project--read-db (project-path)
     "Load a project"
   (let* ((project-db-name "esy-projects.db")
-	 (project-db-path (concat "~/.config.d/emacs/" project-db-name))
+	 (project-db-path (concat (user-emacs-directory project-db-name))
 	 (db (condition-case
 		 err
 		 (esy/internal--read-obj project-db-path)
 	       (error (princ (format "The error was: %s" err)) (esy--make-hash-table)))))
-    (gethash project-path db)))
+    (gethash project-path db))))
 
 (defun esy/internal-status--get-manifest-file-path (esy-status)
   "Given the json object of 'esy status' output,
