@@ -35,7 +35,7 @@
   :group 'tools
   :group 'convenience
   :link '(url-link :tag "github"
-		   "https://github.com/prometheansacrifice/esy-mode"))
+		   "https://github.com/finger-guns/esy-mode"))
 
 (defvar esy-command "esy"
   "The 'esy' command. Can be full path to the esy binary.")
