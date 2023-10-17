@@ -1,6 +1,6 @@
 ;;; esy.el --- Minor mode for esy, the package manager. -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2023 finger-guns
+;; Copyright (C) 2020 Manas Jayanth
 
 ;; Author: Manas Jayanth <prometheansacrifice@gmail.com>
 ;; Created: 1 Jan 2020
@@ -35,7 +35,7 @@
   :group 'tools
   :group 'convenience
   :link '(url-link :tag "github"
-		   "https://github.com/finger-guns/esy-mode"))
+		   "https://github.com/prometheansacrifice/esy-mode"))
 
 (defvar esy-command "esy"
   "The 'esy' command. Can be full path to the esy binary.")
@@ -66,14 +66,10 @@ Common use case is to enable ask lsp client to connect to the server
   "Reads object from file"
   (eval (car (read-from-string (esy/f--read file-path)))))
 
-(defun esy/project--get-db-path (project-db-name)
-  "Get the full path for the project database file."
-  (concat (locate-user-emacs-file project-db-name)))
-
 (defun esy/project--persist (project)
   "Persist project indexed by path"
   (let* ((project-db-name "esy-projects.db")
-	 (project-db-path (esy/project--get-db-path project-db-name))
+	 (project-db-path (concat "~/.emacs.d/" project-db-name))
 	 (db (condition-case
 		 err
 		 (esy/internal--read-obj project-db-path)
@@ -84,8 +80,8 @@ Common use case is to enable ask lsp client to connect to the server
 
 (defun esy/project--read-db (project-path)
     "Load a project"
-(let* ((project-db-name "esy-projects.db")
-	 (project-db-path (esy/project--get-db-path project-db-name))
+  (let* ((project-db-name "esy-projects.db")
+	 (project-db-path (concat "~/.emacs.d/" project-db-name))
 	 (db (condition-case
 		 err
 		 (esy/internal--read-obj project-db-path)
